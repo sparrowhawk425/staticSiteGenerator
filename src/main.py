@@ -38,7 +38,7 @@ def generate_page(basepath, from_path, template_path, dest_path):
     html = markdown_to_html_node(from_md).to_html()
     title = extract_title(from_md)
     html_page = html_page.replace("{{ Title }}", title).replace("{{ Content }}", html)
-    html_page = html_page.replace('href="', f'href="{basepath}').replace('href=', f'href="{basepath}')
+    html_page = html_page.replace('href="', f'href="{basepath}').replace('src="', f'src="{basepath}')
     # create the destination file (create directories if they don't exist)
     print(f"Writing to file {dest_path}")
     dest_dir = os.path.dirname(dest_path)
@@ -64,7 +64,7 @@ def generate_pages_r(basepath, dir_path_content, template_path, dest_dir_path):
 
 def main():
     args = sys.argv
-    basepath = "/" if len(args) < 2 else args[1]
+    basepath = "" if len(args) < 2 else args[1]
 
     copy_files_from_directory_r("static", "docs")
     generate_pages_r(basepath, "content", "template.html", "docs")
